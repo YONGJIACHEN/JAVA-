@@ -1,6 +1,6 @@
 //输出二维数组中最大那个数的行列坐标，并输出那个最大数。用函数完成查找，并带回最大数，将行列坐标写在数组中带回。
 package e5_2;
-import java.util.Scanner;
+import java.util.*;
 class Maxvalue{
 	void maxvl(int arr[][],int max[]) {//max[3]用来存最大值和他的i，j坐标
 		int i,j;
@@ -19,10 +19,13 @@ public class E5_2 {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		int max[]=new int[3];
+		
+		Scanner sc = new Scanner(System.in);
 		System.out.println("请输入行数：");
-		int row=new Scanner(System.in).nextInt();
+		int row=Integer.parseInt(sc.nextLine());
+		
 		System.out.println("请输入列数：");
-		int column=new Scanner(System.in).nextInt();
+		int column=Integer.parseInt(sc.nextLine());
 		
 		int arr[][]=new int [row][column];
 		for(int i=0;i<row;i++) {
@@ -30,7 +33,7 @@ public class E5_2 {
 				arr[i][j]=new Scanner(System.in).nextInt();
 			}
 		}
-	//键盘输入还有问题，我得问问Jerry	
+		
 		Maxvalue p1=new Maxvalue();
 		p1.maxvl(arr,max);
 		
