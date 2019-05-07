@@ -1,0 +1,25 @@
+//7.12从键盘上输入一行字符串，判断单词个数并输出
+package e7_12;
+import java.util.*;
+public class E7_12 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		 Scanner sc = new Scanner(System.in);
+		 String txt=sc.nextLine();
+		
+		 int blank=0;
+		 String[] count=txt.split("[ \\t\\n\\x0B\\f\\r]");
+		 int len=count.length;
+		 for (int i = 0; i < count.length; i++) {
+		      if (count[i]=="") {
+		        blank++;
+		        }
+		    }
+
+		 System.out.println("单词个数："+(len-blank));  //单词个数即是“字符串总长度”-“空格总长度”  
+		
+	}
+
+}
