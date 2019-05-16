@@ -1,0 +1,163 @@
+package c8_3;
+import java.util.*;
+class Dogs 
+{
+	public String name;
+	public int weight;
+	public int height;
+	public Dogs(String s,int w,int h)
+	{
+		this.name=s;
+		this.weight=w;
+		this.height=h;
+	}
+	public void showDogs()
+	{
+		System.out.print("Name:"+name+"\t");
+		System.out.print("weight:"+weight+"\t");
+		System.out.print("height:"+height+"\n");
+	}
+	
+}
+public class C8_3 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		Dogs d1=new Dogs("dane",30,80);
+		Dogs d2=new Dogs("irish",28,70);
+		Dogs d3=new Dogs("one",10,80);
+		Dogs d4=new Dogs("two",40,50);
+	    Dogs d5=new Dogs("three",60,90);
+	    
+	    ArrayList<Dogs> n1=new ArrayList<Dogs>();
+		n1.add(d1);
+		n1.add(d2);
+		n1.add(d3);
+	
+		System.out.println("print all elements of collection: ");
+		Iterator<Dogs> it =n1.iterator();  //Iterator: of crucial importance
+		while(it.hasNext()) {
+			Dogs obj=it.next();
+			obj.showDogs();
+			
+		}
+		System.out.println();
+		
+		System.out.println("print the element whose index is [2]: ");
+		n1.get(2).showDogs();   // E get(int index) Return the exact element by referring the index
+		System.out.println();
+		
+		n1.add(1,(Dogs)d4);
+		System.out.println("print all elements after inserting 'd4' at the place whose index is [1]: ");
+		Iterator<Dogs> it1 =n1.iterator(); //Object whose type is Iterator could be used only once
+		while(it1.hasNext()) {
+			Dogs obj=it1.next();
+			obj.showDogs();
+		}
+		System.out.println();
+		
+		Dogs b=(Dogs)(d1);
+		int n=n1.indexOf(b);
+		n1.remove(n);
+		System.out.println("print all elements after deleting 'n'(Acutally deleting the element whose index is [1]): ");
+		System.out.println();
+		
+		Iterator<Dogs> it2 =n1.iterator();
+		while(it2.hasNext()) {
+			Dogs obj=it2.next();
+			obj.showDogs();
+		}
+		
+		
+	}
+}
+
+
+package c8_4;
+import java.util.*;
+import java.util.LinkedList;
+class Dogs 
+{
+	public String name;
+	public int weight;
+	public int height;
+	public Dogs(String s,int w,int h)
+	{
+		this.name=s;
+		this.weight=w;
+		this.height=h;
+	}
+	public void showDogs()
+	{
+		System.out.println("Name: "+name+" Weight: "+weight+" Height: "+height);
+	}
+}
+public class C8_4 extends LinkedList {  // is a subclass of LinkedList
+		public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		C8_4 stack=new C8_4();
+		Dogs d1=new Dogs("Adiem",30,80);
+		Dogs d2=new Dogs("Bruce",28,70);
+		Dogs d3=new Dogs("Christopher",10,80);
+		Dogs d4=new Dogs("Duly",40,50);
+        Dogs d5=new Dogs("Ellizabeth",60,90);
+		
+		stack.push(d1);
+		stack.push(d2);
+		stack.push(d3);
+		
+		((Dogs) stack.pop()).showDogs();	
+		((Dogs) stack.peek()).showDogs();
+		((Dogs) stack.pop()).showDogs();
+		System.out.println(stack.isEmpty());
+
+	}
+
+}
+
+
+package c8_5;
+import java.util.*;
+class Dogs 
+{
+	public String name;
+	public int weight;
+	public int height;
+	public Dogs(String s,int w,int h)
+	{
+		this.name=s;
+		this.weight=w;
+		this.height=h;
+	}
+	public void showDogs()
+	{
+		System.out.print("Name:"+name+"\t");
+		System.out.print("Weight:"+weight+"\t");
+		System.out.print("Height:"+height+"\n");
+	}
+	
+}
+public class C8_5 extends LinkedList {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Dogs d1=new Dogs("Adiem",30,80);
+		Dogs d2=new Dogs("Bruce",28,70);
+		Dogs d3=new Dogs("Christopher",10,80);
+		Dogs d4=new Dogs("Duly",40,50);
+        Dogs d5=new Dogs("Ellizabeth",60,90);
+		
+        C8_5 queue=new C8_5();
+        queue.addLast(d1);
+        queue.addLast(d2);
+        queue.addLast(d3);
+        ((Dogs) queue.removeFirst()).showDogs();
+        ((Dogs) queue.getFirst()).showDogs();
+        ((Dogs) queue.removeFirst()).showDogs();
+       // ((Dogs) queue.isEmpty()).showDogs();
+        System.out.println(queue.isEmpty());
+        
+	}
+
+}
