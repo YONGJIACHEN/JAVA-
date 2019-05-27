@@ -1,0 +1,183 @@
+package c8_12;
+import java.util.*;
+class Dogs implements Comparable<Dogs>
+{
+	public String name;
+	public int weight;
+	public int height;
+	public Dogs(String s,int w,int h)
+	{
+		this.name=s;
+		this.weight=w;
+		this.height=h;
+	}
+	public void showDogs()
+	{
+		System.out.print("Name: "+name+"\t"+"Weight: "+weight+"\t"+"Height: "+height+"\n");
+		//System.out.println("Name: "+name);
+	}
+	public int compareTo(Dogs d){
+		return this.name.compareTo(d.name);
+	   // int x=this.weight-d.weight;
+	  //  return x;
+	}
+}
+public class C8_12 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		SortedMap<String,Dogs>smap=new TreeMap<String,Dogs>();
+		
+		smap.put("Dude",new Dogs("Dude",30,50));
+		smap.put("Adiem",new Dogs("Adiem",10,80));
+		smap.put("Christopher",new Dogs("Christopher",20,80));
+		smap.put("Bruce",new Dogs("Bruce",28,70));
+		
+		  
+          System.out.println("show sortMap:");
+		  Collection<Dogs> showValues=smap.values();	//将已排序的映射smap中的键赋给集合showValues，便于遍历输出
+          for(Iterator<Dogs> it=showValues.iterator();it.hasNext();){ //遍历输出showValues(Collection类型)
+        	  it.next().showDogs();
+          }
+          System.out.println();
+          
+          System.out.println("show sortMap after doing operation: headMap('Christopher')");
+          SortedMap <String,Dogs> headMap=smap.headMap("Christopher");
+          showValues=headMap.values();
+          for(Iterator<Dogs> it=showValues.iterator();it.hasNext();){ 
+        	  it.next().showDogs();
+          }
+          System.out.println();
+          
+          System.out.println("show sortMap after doing operation: subMap('Bruce','Dude')");
+          SortedMap <String,Dogs> subMap=smap.subMap("Bruce","Dude");
+          showValues=subMap.values();
+          for(Iterator<Dogs> it=showValues.iterator();it.hasNext();){ 
+        	  it.next().showDogs();
+          }
+          System.out.println();
+          
+          System.out.println("show the first key after doing operation: first() "+"\n"+smap.firstKey());
+          System.out.println();
+          
+          System.out.println("show the last key after doing operation: last() "+"\n"+smap.lastKey());
+          System.out.println();
+          
+          System.out.println("Keys of smap(In order):");
+          Set<String> showKeys=smap.keySet();	//将映射smap2中的键赋给Set类型的集合showKeys，便于遍历输出
+          for(Iterator<String> it=showKeys.iterator();it.hasNext();){ //遍历输出showKeys(Set类型)
+        	  System.out.print(it.next()+" ");						//由于Iterator是String型，所以不用ShowDogs，直接System.out输出就行了
+          }
+          System.out.println();
+
+	}
+
+}
+
+输出结果：
+show sortMap:
+Name: Adiem	Weight: 10	Height: 80
+Name: Bruce	Weight: 28	Height: 70
+Name: Christopher	Weight: 20	Height: 80
+Name: Dude	Weight: 30	Height: 50
+
+show sortMap after doing operation: headMap('Christopher')
+Name: Adiem	Weight: 10	Height: 80
+Name: Bruce	Weight: 28	Height: 70
+
+show sortMap after doing operation: subMap('Bruce','Dude')
+Name: Bruce	Weight: 28	Height: 70
+Name: Christopher	Weight: 20	Height: 80
+
+show the first key after doing operation: first() 
+Adiem
+
+show the last key after doing operation: last() 
+Dude
+
+Keys of smap(In order):
+Adiem Bruce Christopher Dude 
+
+
+
+
+
+
+package c8_14;
+import java.util.*;
+class Dogs implements Comparable<Dogs>
+{
+	public String name;
+	public int weight;
+	public int height;
+	public Dogs(String s,int w,int h)
+	{
+		this.name=s;
+		this.weight=w;
+		this.height=h;
+	}
+	public void showDogs()
+	{
+		System.out.print("Name: "+name+"\t"+"Weight: "+weight+"\t"+"Height: "+height+"\n");
+		//System.out.println("Name: "+name);
+	}
+	public int compareTo(Dogs d){
+		return this.name.compareTo(d.name);
+	   // int x=this.weight-d.weight;
+	  //  return x;
+	}
+}
+public class C8_14 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Dogs d[]=new Dogs[4];
+		d[0]=new Dogs("Dylan",40,20);
+		d[1]=new Dogs("Benjamin",50,30);
+		d[2]=new Dogs("Adiem",30,30);
+		d[3]=new Dogs("Christopher",45,50);
+		
+		List<Dogs> all=new ArrayList<Dogs>();
+		Collections.addAll(all,d[0],d[1],d[2],d[3]);
+		
+		System.out.println("Before sorted:");
+		for(Iterator<Dogs> it=all.iterator();it.hasNext();) {
+			it.next().showDogs();
+		}
+		System.out.println();
+		
+		Collections.sort(all);
+		System.out.println("After operation 'sort()'(Ascending order):");
+		for(Iterator<Dogs> it=all.iterator();it.hasNext();) {
+			it.next().showDogs();
+		}
+		System.out.println();
+		
+		Collections.reverse(all);
+		System.out.println("After operation 'reverse()':");
+		for(Iterator<Dogs> it=all.iterator();it.hasNext();) {
+			it.next().showDogs();
+		
+	}
+
+}
+
+输出结果：
+Before sorted:
+Name: Dylan	Weight: 40	Height: 20
+Name: Benjamin	Weight: 50	Height: 30
+Name: Adiem	Weight: 30	Height: 30
+Name: Christopher	Weight: 45	Height: 50
+
+After operation 'sort()'(Ascending order):
+Name: Adiem	Weight: 30	Height: 30
+Name: Benjamin	Weight: 50	Height: 30
+Name: Christopher	Weight: 45	Height: 50
+Name: Dylan	Weight: 40	Height: 20
+
+After operation 'reverse()':
+Name: Dylan	Weight: 40	Height: 20
+Name: Christopher	Weight: 45	Height: 50
+Name: Benjamin	Weight: 50	Height: 30
+Name: Adiem	Weight: 30	Height: 30
+
