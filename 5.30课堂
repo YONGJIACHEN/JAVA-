@@ -1,0 +1,223 @@
+package c8_15;
+import java.util.*;
+public class C8_15 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		int[]a= {11,12,13,56,3};
+		List<Integer>list=new ArrayList<Integer>();
+		for(int i=0;i<a.length;i++) {
+			list.add(new Integer(a[i]));
+		}
+		System.out.println("the set a[] before shuffling: "+list);
+		Collections.shuffle(list);
+		System.out.println("the set a[] after shuffling: "+list);
+	}
+
+}
+
+运行结果：
+the set a[] before shuffling: [11, 12, 13, 56, 3]
+the set a[] after shuffling: [12, 56, 13, 11, 3]
+
+
+
+
+//按名字
+package c8_17;
+import java.util.*;
+class Dogs implements Comparable<Dogs>
+{
+	public String name;
+	public int weight;
+	public int height;
+	public Dogs(String s,int w,int h)
+	{
+		this.name=s;
+		this.weight=w;
+		this.height=h;
+	}
+	public void showDogs()
+	{
+		System.out.print("Name: "+name+"\t"+"Weight: "+weight+"\t"+"Height: "+height+"\n");
+		//System.out.println("Name: "+name);
+	}
+	public int compareTo(Dogs d){
+		return this.name.compareTo(d.name);
+	   // int x=this.weight-d.weight;
+	  //  return x;
+	}
+}
+public class C8_17 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Dogs d[]=new Dogs[4];
+		d[0]=new Dogs("Dylan",40,20);
+		d[1]=new Dogs("Benjamin",50,30);
+		d[2]=new Dogs("Adiem",30,30);
+		d[3]=new Dogs("Christopher",45,50);
+		
+		List<Dogs> all=new ArrayList<Dogs>();
+		Collections.addAll(all,d[0],d[1],d[2],d[3]);
+		
+		System.out.println("Before sorted:");
+		for(Iterator<Dogs> it=all.iterator();it.hasNext();) {
+			it.next().showDogs();
+		}
+		System.out.println();
+		
+		Collections.sort(all);	//二分查找前一定要先排序！！（升序）
+		
+		System.out.println("After operation 'sort()'(Ascending order):"); 
+		for(Iterator<Dogs> it=all.iterator();it.hasNext();) {
+			it.next().showDogs();
+		}
+		System.out.println();
+		
+		int n=Collections.binarySearch(all,new Dogs("Adiem",0,0)); //按照名字查询（不必按对象名）
+	   System.out.println("Have found 'Adiem', it's index is: "+n);
+	   System.out.println();
+	   
+	   Collections.sort(all);	
+	   
+	   int n1=Collections.binarySearch(all,new Dogs("Dylan",0,0));
+	   System.out.println("Have found 'Dylan', it's index is: "+n1);
+	   System.out.println();
+		
+	   Collections.sort(all);
+	   
+	   int n2=Collections.binarySearch(all,new Dogs("Eliza",0,0));
+	   System.out.println("Have not found 'Eliza', it is: "+n2);
+	   
+
+	//按weight排序，查找方式   int n3=Collections.binarySearch(all,new Dogs(null,40,0));
+	 //对象名查找方式  int n4=Collections.binarySearch(all,d[2]);
+	   
+	
+}
+}
+
+运行结果：
+Before sorted:
+Name: Dylan	Weight: 40	Height: 20
+Name: Benjamin	Weight: 50	Height: 30
+Name: Adiem	Weight: 30	Height: 30
+Name: Christopher	Weight: 45	Height: 50
+
+After operation 'sort()'(Ascending order):
+Name: Adiem	Weight: 30	Height: 30
+Name: Benjamin	Weight: 50	Height: 30
+Name: Christopher	Weight: 45	Height: 50
+Name: Dylan	Weight: 40	Height: 20
+
+Have found 'Adiem', it's index is: 0
+
+Have found 'Dylan', it's index is: 3
+
+Have not found 'Eliza', it is: -5
+
+
+
+
+
+//按体重
+package c8_17_2;
+import java.util.*;
+class Dogs implements Comparable<Dogs>
+{
+	public String name;
+	public int weight;
+	public int height;
+	public Dogs(String s,int w,int h)
+	{
+		this.name=s;
+		this.weight=w;
+		this.height=h;
+	}
+	public void showDogs()
+	{
+		System.out.print("Name: "+name+"\t"+"Weight: "+weight+"\t"+"Height: "+height+"\n");
+
+	}
+	public int compareTo(Dogs d){
+		//return this.name.compareTo(d.name);
+	 int x=this.weight-d.weight;
+	  return x;
+	}
+}
+public class C8_17_2 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Dogs d[]=new Dogs[4];
+		d[0]=new Dogs("Dylan",40,20);
+		d[1]=new Dogs("Benjamin",50,30);
+		d[2]=new Dogs("Adiem",30,30);
+		d[3]=new Dogs("Christopher",45,50);
+		
+		List<Dogs> all=new ArrayList<Dogs>();
+		Collections.addAll(all,d[0],d[1],d[2],d[3]);
+		
+		System.out.println("Before sorted:");
+		
+		Iterator<Dogs> it=all.iterator();
+		for(;it.hasNext();) {
+			it.next().showDogs();
+		}
+		System.out.println();
+		
+/*		Collections.sort(all);
+		System.out.println("After operation 'sort()'(Ascending order):");
+		for(it=all.iterator();it.hasNext();) {
+			it.next().showDogs();
+		}
+		System.out.println();*/
+		
+		int n=Collections.binarySearch(all,new Dogs(null,50,0));//按weight排序
+	   System.out.println("Have found the one whose weight is '50', it's index is: "+n);
+	   
+	   System.out.println();
+	   
+	   System.out.println("After the first binarey search :");
+	  it=all.iterator();
+	   while(it.hasNext()) {
+			Dogs dd=it.next();
+			dd.showDogs();
+		}
+		System.out.println();
+		
+	   Collections.sort(all);	
+	   
+	   int n1=Collections.binarySearch(all,new Dogs(null,40,0));
+	   System.out.println("Have found the one whose weight is '40', it's index is: "+n1);
+	   
+	   Collections.sort(all);	
+	   
+	   int n2=Collections.binarySearch(all,new Dogs(null,80,0));
+	   System.out.println("Have not found the one whose weight is '80', it is: "+n2);
+	   
+
+	//按weight排序，查找方式   int n3=Collections.binarySearch(all,new Dogs(null,40,0));
+	 //对象名查找方式  int n4=Collections.binarySearch(all,d[2]);
+	}
+
+}
+
+运行结果：
+Before sorted:
+Name: Dylan	Weight: 40	Height: 20
+Name: Benjamin	Weight: 50	Height: 30
+Name: Adiem	Weight: 30	Height: 30
+Name: Christopher	Weight: 45	Height: 50
+
+Have found the one whose weight is '50', it's index is: 1
+
+After the first binarey search :
+Name: Dylan	Weight: 40	Height: 20
+Name: Benjamin	Weight: 50	Height: 30
+Name: Adiem	Weight: 30	Height: 30
+Name: Christopher	Weight: 45	Height: 50
+
+Have found the one whose weight is '40', it's index is: 1
+Have not found the one whose weight is '80', it is: -5
