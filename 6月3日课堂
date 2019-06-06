@@ -1,0 +1,38 @@
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+@SuppressWarnings("deprecation")
+public class c10_8 extends JApplet implements ActionListener{
+	 Container cp=this.getContentPane();
+	 Icon ro=new ImageIcon(getClass().getResource("/image/G1.gif"));
+	 Icon ge=new ImageIcon(getClass().getResource("/image/G2.gif"));
+	 Icon pr=new ImageIcon(getClass().getResource("/image/G3.gif"));
+	 JButton bt=new JButton();
+	 Icon icon=new ImageIcon(getClass().getResource("/image/G4.gif"));
+	 JLabel lb=new JLabel("Java",icon,JLabel.CENTER);
+	 
+	 public void init() {
+		 bt.setRolloverEnabled(true);
+		 bt.setText("OK");
+		 bt.setHorizontalTextPosition(JLabel.CENTER);
+		 be.setVerticalTextPosition(JLabel.BOTTOM);
+		 cp.add(lb,BorderLayout.NORTH);
+		 cp.add(bt.BorderLayout.SOUTH);
+		 bt.setIcon(ge);
+		 be.setPressedIcon(pr);
+		 bt.addActionListener(this);
+	 }
+	 
+	 public void actionPerformed(ActionEvent e) {
+		 if(g.getSource()==bt) {
+			 if("Hello".equals(lb.getText()))
+				 lb.setText("你好！");
+			 else
+				 lb.setText("Hello!");
+			 if("OK".contentEquals(bt.getText()))
+				 bt.setText("确定");
+			 else
+				 bt.setText("OK");
+		 }
+	 }
+}
