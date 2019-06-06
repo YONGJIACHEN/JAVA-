@@ -30,6 +30,105 @@ Cu,La,Pe,Ir,Om, set.size()=5
 
 
 
+package c8_8;
+import java.util.*;
+class Dogs implements Comparable<Dogs>
+{
+	public String name;
+	public int weight;
+	public int height;
+	public Dogs(String s,int w,int h)
+	{
+		this.name=s;
+		this.weight=w;
+		this.height=h;
+	}
+	public void showDogs()
+	{
+		System.out.print("Name: "+name+"\t"+"Weight: "+weight+"\t"+"Height: "+height+"\n");
+	}
+	public int compareTo(Dogs d){
+		return this.name.compareTo(d.name);
+	   // int x=this.weight-d.weight;
+	   // return x;
+	}
+}
+public class C8_8 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		LinkedHashSet<Dogs> s1=new LinkedHashSet<Dogs>();
+		HashSet<Dogs> s2=new HashSet<Dogs>();
+		TreeSet<Dogs> s3=new TreeSet<Dogs>();
+		
+		Dogs D[]=new Dogs[5];
+		D[0]=new Dogs ("Adiem",10,80);
+		D[1]=new Dogs("Bruce",28,70);
+		D[2]=new Dogs("Christopher",20,80);
+		D[3]=new Dogs("Duly",30,50);
+		
+		//Collection<Dogs> list =new ArrayList<Dogs>(Arrays.asList(D));
+		s1.add(D[0]);
+		s1.add(D[1]);
+		s1.add(D[2]);
+		
+		s2.add(D[0]);
+		s2.add(D[1]);
+		s2.add(D[2]);
+		
+		s3.add(D[0]);
+		s3.add(D[1]);
+		s3.add(D[2]);
+		
+		System.out.println("Show LinkedHashSet(insert order):");
+	   Iterator<Dogs> it=s1.iterator();
+	   while(it.hasNext()) {
+		   Dogs d=it.next();
+		   d.showDogs();
+	   }
+	   System.out.println();
+	   
+	   System.out.println("Show HashSet(random name order):");
+	   for(it=s2.iterator();it.hasNext();) {
+		   Dogs d=it.next();
+		   d.showDogs();
+	   }
+	   System.out.println();
+	   
+	   System.out.println("Show TreeSet(sorted order: ascending by name):");
+	   it=s3.iterator();
+	   while(it.hasNext()) {
+		   it.next().showDogs();
+	   }
+	   System.out.println();
+	   
+	   
+	}
+
+}
+
+运行结果：
+Show LinkedHashSet(insert order):
+Name: Adiem	Weight: 10	Height: 80
+Name: Bruce	Weight: 28	Height: 70
+Name: Christopher	Weight: 20	Height: 80
+
+Show HashSet(random name order):
+Name: Christopher	Weight: 20	Height: 80
+Name: Adiem	Weight: 10	Height: 80
+Name: Bruce	Weight: 28	Height: 70
+
+Show TreeSet(sorted order: ascending by name):
+Name: Adiem	Weight: 10	Height: 80
+Name: Bruce	Weight: 28	Height: 70
+Name: Christopher	Weight: 20	Height: 80
+
+
+
+
+
+
+
 package c8_9;
 import java.util.*;
 class Dogs implements Comparable<Dogs>
