@@ -1,0 +1,72 @@
+//建立狗对象的ArrayList集合，遍历并输出
+package e8_1;
+import java.util.*;
+class Dogs 
+{
+   public String name;
+   public int weight;
+   public int height;
+   public Dogs(String s,int w,int h)
+   {
+	   this.name=s;
+	   this.weight=w;
+	   this.height=h;
+   }
+   public void showDogs()
+   {
+	   System.out.println("name:"+this.name);
+	   System.out.println("weight:"+this.weight);
+	   System.out.println("height:"+this.height);
+   }
+}
+public class E8_1 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Dogs D[]=new Dogs[5];
+		D[0]=new Dogs("Adiem",1,1);
+		D[1]=new Dogs("Bruce",2,2);
+		D[2]=new Dogs("Cisco",3,3);
+		D[3]=new Dogs("Dan",4,4);
+		D[4]=new Dogs("Eli",5,5);
+	 
+	     ArrayList<Dogs> list=new ArrayList<Dogs>(); 
+	    list.add(D[0]);
+	    list.add(D[1]);
+	    list.add(D[2]);
+	    list.add(D[3]);
+	    list.add(D[4]);
+	    for(Iterator<Dogs> it= list.iterator(); it.hasNext();) {
+	    	Object obj=it.next();
+	    	((Dogs)obj).showDogs();
+	    	System.out.println();
+	    }
+	   
+	    /* while(it.hasNext())//判断下一个元素之后有值
+	     {
+	         Dogs i=(it.next());
+	         ((Dogs)i).showDog();
+	     }*/
+}
+}
+
+运行结果：
+name:Adiem
+weight:1
+height:1
+
+name:Bruce
+weight:2
+height:2
+
+name:Cisco
+weight:3
+height:3
+
+name:Dan
+weight:4
+height:4
+
+name:Eli
+weight:5
+height:5
