@@ -1,0 +1,27 @@
+//1：带构造函数;法2：无构造函数;法3：用静态方法实现
+package e4_15;
+import java.util.*;
+class function {
+	//public function() {}
+	//无构造函数
+	public static int fibo(int n) {
+		if(n==1) return 1;
+		else if(n==2) return 1;
+		else return(fibo(n-1)+fibo(n-2));
+	}
+}
+public class E4_15 {
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		function fun=new function();
+		int n=8;
+		int f8=fun.fibo(n);
+		System.out.println("f8="+f8);
+	}
+	
+
+}
+
+运行结果：
+f8=21
