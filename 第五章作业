@@ -1,0 +1,171 @@
+/*e5_1:关于继承和重载：
+编写一个Java应用程序，设计一个运输工具类Transport，包含的成员属性有：速度(pace)、载重量(load)；汽车类Vehicle是Transport的子类，其中包含的属性有：车轮的个数(wheels)和车重(weight)；飞机Airplane类是Transport类的子类，其中包含的属性有：机型(enginetype)和发动机的数量(engines)，每个类都有相关数据的输出方法。如对Transport类，就有getload()和getpace()方法获得对象的速度和载重量，有show()方法可以在屏幕上输出对象的速度和载重量，有构造方法（带参数）可以初始化某运输工具对象的速度和载重量。请定义汽车类和飞机类的构造方法和get方法，再用一个主类的main()分别定义这三个类的对象，设置其属性，并输出相应的属性值。*/
+package e5_1;
+class Transport
+{
+	double pace, load;
+	Transport(double pace,double load){
+		this.pace=pace;
+		this.load=load;
+	}
+	void show() {
+		System.out.print("速度 ："+pace);
+		System.out.print("，载重量："+load);
+	}	
+}
+
+class Vehicle extends Transport
+{
+	int wheels;
+	double weight;
+	Vehicle(double pace,double load,int wheels, double weight){
+		super(pace,load);
+		this.wheels=wheels;
+		this.weight=weight;
+		
+	}
+    public void show1() {
+    	System.out.println("交通工具：车辆 ");
+    	show();
+    	System.out.print("车轮数："+wheels);
+    	System.out.println("，车重："+weight);
+    	System.out.println();
+    }
+}
+
+class Airplane extends Transport
+{
+	String enginertype;
+	int enginers;
+	Airplane(double pace,double load,String enginertype,int enginers){
+		super(pace,load);
+		this.enginertype=enginertype;
+		this.enginers=enginers;
+	}
+	 public void show2() {
+	    	System.out.println("交通工具：飞机 ");
+	    	show();
+	    	System.out.print("机型："+enginertype);
+	    	System.out.println("，发动机数量："+enginers);
+	    	System.out.println();
+	 }
+}
+
+public class E5_1 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Vehicle vehicle=new Vehicle(111.1,111.1,4,111.1);
+		Airplane airplane=new Airplane(999.9,999.9,"Jet",2);
+		vehicle.show1();
+		airplane.show2();
+	}
+
+}
+
+运行结果：
+ 交通工具：车辆 
+速度 ：111.1，载重量：111.1车轮数：4，车重：111.1
+
+交通工具：飞机 
+速度 ：999.9，载重量：999.9机型：Jet，发动机数量：2
+
+
+
+
+
+//输出二维数组中最大那个数的行列坐标，并输出那个最大数。用函数完成查找，并带回最大数，将行列坐标写在数组中带回。
+//草，输入还有问题，得问尹
+package e5_2;
+import java.util.*;
+class Maxvalue{
+	void maxvl(int arr[][],int max[]) {//max[3]用来存最大值和他的i，j坐标
+		int i,j;
+		max[0]=0; max[1]=0; 
+		max[2]=arr[0][0]; //先默认a[0][0]为最大值，存在max[2]
+		for(i=0;i<arr.length-1;i++) {
+			for(j=0;j<arr[i].length;j++) {
+				if(arr[i][j]>max[2])
+					max[2]=arr[i][j];
+			}
+		}
+	}
+}
+public class E5_2 {
+    
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		int max[]=new int[3];
+		
+		Scanner sc = new Scanner(System.in);
+		System.out.println("请输入行数：");
+		int row=Integer.parseInt(sc.nextLine());
+		
+		System.out.println("请输入列数：");
+		int column=Integer.parseInt(sc.nextLine());
+		
+		int arr[][]=new int [row][column];
+		for(int i=0;i<row;i++) {
+			for(int j=0;j<column;j++) {
+				arr[i][j]=new Scanner(System.in).nextInt();
+			}
+		}
+		
+		Maxvalue p1=new Maxvalue();
+		p1.maxvl(arr,max);
+		
+		System.out.print("最大值为："+max[2]);
+		System.out.print("它在第"+(max[0]+1)+"行,第"+(max[1]+1)+"列");
+		
+		
+	}
+
+}
+
+
+
+
+
+package e5_3;
+interface Volume{
+	double calculateVolume();
+}
+class Sphere implements Volume{
+	double radius,x,y;
+	Sphere(double radius,double x,double y){
+		this.radius=radius;
+		this.x=x;
+		this.y=y;
+	}
+	public double calculateVolume() {
+		return 3.14159*radius*radius*radius*4/3;
+	}
+}
+class Cube implements Volume{
+	double length,weight,height;
+	Cube(double length, double weight, double height){
+		this.length=length;
+		this.weight=weight;
+		this.height=height;
+	}
+	public double calculateVolume() {
+		return length*weight*height;
+	}
+}
+public class E5_3 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Sphere sphere=new Sphere(5,0,0);
+		System.out.println("Sphere Volume="+sphere.calculateVolume());
+		Cube cube=new Cube(5,4,3);
+		System.out.println("Cube Volume="+cube.calculateVolume());
+	}
+
+}
+
+运行结果：
+Sphere Volume=523.5983333333334
+Cube Volume=60.0
+
+
