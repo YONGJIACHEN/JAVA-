@@ -1,26 +1,49 @@
-//1：带构造函数;法2：无构造函数;法3：用静态方法实现
+//1.带构造函数
 package e4_15;
-import java.util.*;
 class function {
-	//public function() {}
-	//无构造函数
-	public static int fibo(int n) {
-		if(n==1) return 1;
-		else if(n==2) return 1;
-		else return(fibo(n-1)+fibo(n-2));
+	public int x;
+	public function(int x) {this.x=x;}  //构造方法
+	
+	public static int fibo(int x) {
+		if(x==1) return 1;
+		else if(x==2) return 1;
+		else return(fibo(x-1)+fibo(x-2));
+	}
+	
+	public void showFibo() {	System.out.println("f("+x+")="+function.fibo(x));}
+}
+public class E4_15 {	
+	public static void main(String[] args) {
+		function fun=new function(8);
+		fun.showFibo();
 	}
 }
-public class E4_15 {
-	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		function fun=new function();
-		int n=8;
-		int f8=fun.fibo(n);
-		System.out.println("f8="+f8);
+
+运行结果：
+f8=21
+
+
+
+
+
+
+//2.无构造函数
+package e4_15_2;
+class function {
+	public int x;	
+	public static int fibo(int x) {
+		if(x==1) return 1;
+		else if(x==2) return 1;
+		else return(fibo(x-1)+fibo(x-2));
 	}
 	
-
+	public void showFibo(int x) {	System.out.println("f("+x+")="+function.fibo(x));}
+}
+public class E4_15_2 {
+	public static void main(String[] args) {
+		function fun=new function();
+		fun.showFibo(8);
+	}
 }
 
 运行结果：
