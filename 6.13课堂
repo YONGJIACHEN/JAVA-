@@ -1,0 +1,132 @@
+import java.awt.*;
+import java.awt.event.*;
+import java.util.*;
+import javax.swing.*;
+import java.util.*;
+
+class Dogs implements Comparable<Dogs>
+{
+	public String name,kind;
+	public int weight;
+	public Dogs(String s,int w,String k)
+	{
+		this.name=s;
+		this.weight=w;
+		this.kind=k;
+	}
+	public String showDogs()
+	{
+		return("Name: "+name+"\t"+"Weight: "+weight+"\t"+"Kind: "+kind+"\n");
+	}
+	public int compareTo(Dogs d){
+		return this.name.compareTo(d.name);
+	   // int x=this.weight-d.weight;
+	   // return x;
+	}
+}
+
+public class DogsGUI extends JApplet implements ActionListener, ItemListener {
+	int weight;
+	String name,kind;
+	
+	//声明容器,以容纳下列J组件
+	Container ctp=this.getContentPane();		
+	
+	//声明按钮(Button)对象
+	JButton bt1=new JButton("新建狗狗");		
+	JButton bt2=new JButton("排序狗狗");
+	
+	//声明标签(Label)对象
+	JLabel lb1=new JLabel("名称:");					
+	JLabel lb2=new JLabel("重量(以斤为单位):");
+	JLabel lb3=new JLabel("种类:");
+	
+	//声明文本条(TextField)对象: 长度10
+	JTextField tf1=new JTextField(10);
+	
+	//声明单选按钮(RadioButton)对象
+	JRadioButton rb1=new JRadioButton("10");
+	JRadioButton rb2=new JRadioButton("20");
+	JRadioButton rb3=new JRadioButton("30");
+	
+	//声明按钮组(ButtonGroup)对象
+	ButtonGroup bg=new ButtonGroup();
+	
+	//声明下拉列表框(ComboBox)对象
+	JComboBox cbx=new JComboBox();
+	
+	//声明文本框/域(TextArea)对象
+	JTextArea tf2=new JTextArea(10,50);
+	
+	//声明Dogs对象的数组队列
+	ArrayList<Dogs> dglist=new ArrayList<Dogs>();
+	
+	public void init() {
+		//布局方式:流式布局
+		ctp.setLayout(new FlowLayout());
+	//名字	
+		ctp.add(lb1);			//加载标签到界面(容器)上
+		ctp.add(tf1);			//加载文本条到界面上
+	//重量
+		ctp.add(lb2);
+		ctp.add(rb1);			//加载三个单选按钮到界面上
+		ctp.add(rb2);
+		ctp.add(rb3);
+		
+		bg.add(rb1);			//加载三个单选按钮到按钮组
+		bg.add(rb2);
+		bg.add(rb3);
+	//种类	
+		ctp.add(lb3);
+		cbx.addItem("小肥柴");			//添加选项到下拉式列表框对象到容器上
+		cbx.addItem("中华田园犬");
+		cbx.addItem("秋田犬");
+		ctp.add(cbx);		//加载下拉式列表框到界面上
+		
+		ctp.add(tf2);			//加载文本区域到界面上
+		
+		ctp.add(bt1);			
+		ctp.add(bt2);
+		
+		//注册组件各自的监听器对象到各自的事件源
+		rb1.addActionListener(this);			//"动作"事件监听者(器)  (疑问:这里应该也可以用ItemListener吧?)
+		rb2.addActionListener(this);
+		rb3.addActionListener(this);		
+		cbx.addItemListener(this);			//"选择"事件监听者,主要用于ComboBox
+		
+		bt1.addActionListener(this);			
+		bt2.addActionListener(this);		
+	}
+	
+	@Override
+	public void itemStateChanged(ItemEvent e1) {	//事件监听器ItemListener的成员方法,在用户已选定或取消选定某项时调用
+		kind=(String)e1.getItem();						//getItem()方法: 用来获取返回受事件影响的项, 通过调用此方法, 可以知道用户选中了哪个选项; 这里的作用是返回JComboBox中的具体item(对象类型), 需要强制类型转换为String类型, 再赋值 
+		tf2.setText("已设好种类"+kind);
+	}
+	
+	@Override
+	public void actionPerformed(ActionEvent e2) {	//事件监听器ActionListener的的成员方法, 发生操作时调用
+		//点击"创建狗狗"时
+		if(e2.getSource()==bt1) {						//getSource()方法:获取最初发生事件的事件源对象
+			name=tf1.getText();
+			Dogs dg=new Dogs(name,weight,kind);	//新建一个Dogs对象dg
+			dglist.add(dg);													//将刚创建的dg, 加入到Dogs对象的数组队列(ArrayList)dglist中
+			tf2.setText("已成功新建一只狗\n"+dg.showDogs());		//setText()方法: 设置标签的文本
+		}
+		//点击"排序狗狗"时
+		else if(e2.getSource()==bt2) {
+			Collections.sort(dglist);							//Collection类是所有集合类的父类(包括数组队列ArrayList类), 这里调用Collections算法类下的静态方法sort()对dglist进行排序(以名字首字母降序)
+			Iterator<Dogs>it =dglist.iterator();
+			tf2.setText("");
+			while(it.hasNext()) {
+				tf2.append(it.next().showDogs());		//append()是往动态字符串数组添加，相当于System.ou.prinln(“xxxx”+“yyyy”);那个‘+’号
+			}
+		}
+		else {
+			weight=Integer.parseInt(e2.getActionCommand());		//getActionCommand()方法: 用来获取时间源对象的 标签 或 事先为这个对象设置的命令名; 在这里, 三个单选按钮RadioButton的名称分别是"10", "20", "30" (String类), 需要强制转换为Int类型, 再赋值
+			tf2.setText("已设置好重量"+weight);
+		}
+		
+	}
+
+}
