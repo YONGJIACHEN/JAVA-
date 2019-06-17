@@ -1,0 +1,107 @@
+package c13_2;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Dimension;
+import javax.swing.JApplet; 
+
+public class C13_2 extends JApplet {
+			@Override
+			public void init() {
+					Container cp=getContentPane();
+					CString pa=new CString();			//创建JPanel类的对象 (JPanel是一种"面板"容器. 组件们先排列在一个容器中, 然后将其作为一个整体嵌入窗口)
+					CSquare pa1=new CSquare();		
+					pa.setPreferredSize(new Dimension(300,150));	//设置pa的宽度和高度
+					pa.setBackground(Color.cyan);   //设置pa的对象背景颜色: 青绿色
+					pa1.setPreferredSize(new Dimension(300,150));	
+					pa1.setBackground(Color.cyan);  
+					//cp容器的布局为BorderLayout, 添加pa及pa1的对象到cp容器中
+					cp.add(pa,BorderLayout.NORTH);		//将pa加载到cp容器(边界布局)的北区域
+					cp.add(pa1,BorderLayout.SOUTH);		
+			}
+}
+
+
+package c13_2;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import javax.swing.JPanel;	//面板
+public class CString extends JPanel implements Runnable {	//自定义的CString类是JPanel类的子类, CString类通过实现Runnable接口方式, 将用户自定义的run()方法继承过来, 从而创造一个线程
+		int x=10,y=50;
+		String Message="Java Now!";					//创建字符串对象
+		Font f=new Font("TimesRoman",Font.BOLD,24);			//创建字体对象
+		Thread th1=new Thread(this);				//把当前的类(this, 指代CString类) 实例化为一个线程th1
+		public CString() {			 //构造函数
+			start();		// 构造函数一旦被调用, 将调用CString类自定义的start()方法
+		}
+		private void start() {		//CString类自定义的start()方法
+			th1.start();		//CString类的start()方法一旦被调用, th1线程将调用内置的start()方法 (start()是Thread类的用来改变线程状态的方法之一, 它的作用是使线程从新生状态进入就绪状态)
+		}
+		
+		@Override
+		public void run() {			//用户自定义(重载)的run()方法, run()方法会在线程启动之后自动被调用
+			// TODO Auto-generated method stub
+			while(true) {				//死循环
+				x=x-5;							//向左走5个单位, 休息500毫秒
+				if(x==0)
+					x=300;
+				repaint();			//repaint()方法重画字符串组件(Component),刷新页面
+				try{		Thread.sleep(500);		}
+				catch(InterruptedException e) {	};
+			}//while		
+		}//run
+		
+		@Override
+		public void paint(Graphics g) {
+			super.paint(g);		//super.paint(g)是调用CString类的父类JApplet的paint()方法, 在JApplet容器中把g对象画上, 显示出来
+			Graphics2D g2=(Graphics2D)g;
+			g2.setFont(f);			//设置字体	
+			g2.drawString(Message,x,y); 		//以坐标x, y为起始位置, 用当前的字体和颜色绘制字符串Message
+		}
+}
+
+
+
+
+package c13_2;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.geom.Rectangle2D;
+import javax.swing.JPanel;
+public class CSquare extends JPanel implements Runnable {
+			int x1,y1,w1,h1;
+			Thread th2=new Thread(this);	//把当前的类实例化为一个线程th2
+			public CSquare() {							//CSquare()类的构造方法
+				x1=5;	y1=100;	w1=40;	h1=40;		
+				start();
+			}
+			private void start() {
+				th2.start();
+			}
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				while(true) {		//死循环
+					x1+=5;					//向右走5个单位, (休息500ms)
+					if(x1==250)
+						x1=0;	
+					repaint();			//repaint()方法调用paint()方法重画矩形框
+					try {	Thread.sleep(500);	}			//使th2线程睡眠500ms
+					catch(InterruptedException e) {	};
+				}//while
+			}//run
+			
+			public void paint(Graphics g) {
+				super.paint(g);
+				Graphics2D g2=(Graphics2D)g;
+				Rectangle2D.Double rec1=new Rectangle2D.Double(x1,y1,w1,h1); 	//Rectangle2D.Double(double x, double y, double width, double height
+				g2.draw(rec1);
+			}
+}
+
+
+运行结果：
+
+
