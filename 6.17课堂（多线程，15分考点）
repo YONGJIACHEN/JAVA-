@@ -1,3 +1,8 @@
+/*期末考试可能就是在移动路径上做改动了，如在斜率为1的直线上移动
+x=x±5;
+y=y±5;
+请熟悉！！！
+*/
 package c13_2;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -103,5 +108,5 @@ public class CSquare extends JPanel implements Runnable {
 
 
 运行结果：
-
+传图太麻烦了ouo
 
