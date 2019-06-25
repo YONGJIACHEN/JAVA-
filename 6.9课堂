@@ -121,3 +121,38 @@ public class C10_10 extends JApplet implements ItemListener {
 		lb3.setText(score[c]);
 	}
 }
+
+
+
+
+
+package c10_12;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+public class C10_12 extends JApplet implements ActionListener {
+	Container ctp=getContentPane();
+	ImageIcon icon1=new ImageIcon(getClass().getResource("/image/g1.jpg"));
+	ImageIcon icon2=new ImageIcon(getClass().getResource("/image/g2.jpg"));
+	JLabel lb1=new JLabel("输入文字后按回车:",icon1,JLabel.CENTER);
+	JLabel lb2=new JLabel("输出结果:",icon2,JLabel.CENTER);
+	JTextField tf1=new JTextField(10);	//initial textbox componet
+	JTextArea tf2=new JTextArea(5,10);	//创建文本区域对象
+	
+	public void intit() {
+		ctp.setLayout(new FlowLayout());
+		ctp.add(lb1);
+		ctp.add(tf1);
+		ctp.add(lb2);
+		ctp.add(tf2);
+		tf1.addActionListener(this);
+	}
+	
+	public void actionPerformed(ActionEvent e) {
+		String str;
+		str=tf1.getText();	//获得文本框的文本给str(此方法是JTextComponent类的方法)
+		tf2.append(str+"\n");
+	}
+	
+}
+
