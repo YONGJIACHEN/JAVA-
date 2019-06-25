@@ -1,1 +1,123 @@
+//三个复选框, 三个单选框, 一个"请选择" 标签
+package c10_9;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+public  class C10_9 extends JApplet implements ItemListener,ActionListener
+{
+	int i1=0,i2=0,i3=0;
+	int fonti=10;
+	Font font;
+	Container ctp=getContentPane();
+	JLabel lb=new JLabel("请选择");
+	JCheckBox cb1,cb2,cb3;		//声明复选框(CheckBox)对象
+	JRadioButton r1,r2,r3;		//声明按钮(RadioButton)对象
+	ButtonGroup bg=new ButtonGroup();	//创建按钮组(ButtonGroup)对象，实现多选一功能
+	public void init() {
+		ctp.setLayout(new FlowLayout());	//布局方式：流式布局
+		
+		cb1=new JCheckBox("红色",false);		//创建复选框(CheckBox)
+		cb1.addItemListener(this);			//为事件源注册监听器对象
+		ctp.add(cb1);						//添加复选框到界面上
+		
+		cb2=new JCheckBox("绿色",false);
+		cb2.addItemListener(this);
+		ctp.add(cb2);
+		
+		cb3=new JCheckBox("蓝色",false);
+		cb3.addItemListener(this);
+		ctp.add(cb3);
+		
+		r1=new JRadioButton("10");
+		r1.addActionListener(this);
+		ctp.add(r1);						//加载载按钮到界面上
+		
+		r2=new JRadioButton("16");
+		r2.addActionListener(this);		
+		ctp.add(r2);
+		
+		r3=new JRadioButton("24");
+		r3.addActionListener(this);
+		ctp.add(r3);
+		
+		bg.add(r1);							//加载按钮到按钮组
+		bg.add(r2);
+		bg.add(r3);
+		
+		ctp.add(lb);						//加载标签到界面上
+	}
+	
+	@Override
+	public void itemStateChanged(ItemEvent e) {
+		// TODO Auto-generated method stub
+		JCheckBox cbx=(JCheckBox)e.getItem();
+		if("红色".equals(cbx.getText())) {
+			if(e.getStateChange()==ItemEvent.SELECTED) i1=255; //判断组件是否被选
+			else i1=0;
+		}
+	
+		if("绿色".equals(cbx.getText())) {
+			if(e.getStateChange()==ItemEvent.SELECTED) i2=255; //判断组件是否被选
+			else i2=0;
+		}
 
+		if("蓝色".equals(cbx.getText())) {
+			if(e.getStateChange()==ItemEvent.SELECTED) i3=255; //判断组件是否被选
+			else i3=0;
+		}
+		font=new Font("宋体",Font.BOLD,fonti);
+		lb.setFont(font);
+		lb.setForeground(new Color(i1,i2,i3));
+	}
+	
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		String rbt=e.getActionCommand();
+		if("10".equals(rbt)) fonti=10;
+		else if("16".equals(rbt)) fonti=16;
+		else fonti=24;
+		
+		font=new Font("宋体",Font.BOLD,fonti);
+		lb.setFont(font);
+		lb.setForeground(new Color(i1,i2,i3));
+	}
+
+
+}
+
+
+
+//一个下拉列表框, 一个标签
+package c10_10;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+public class C10_10 extends JApplet implements ItemListener {
+	Container ctp=getContentPane();
+	JLabel lb1=new JLabel("姓名："),
+		lb2=new JLabel("英语："),
+		lb3=new JLabel("     ");
+		String name[]= {"李林","赵欣","张扬","童梅"},
+		score[]= {"80","94","75","87"};
+	JComboBox cbx=new JComboBox();
+	public void init() {
+		ctp.setLayout(new FlowLayout());
+		for(int i=0;i<name.length;i++) {
+			cbx.addItem(name[i]);
+		}
+		ctp.add(lb1);
+		ctp.add(cbx);
+		cbx.addItemListener(this);
+		ctp.add(lb2);
+		ctp.add(lb3);
+		
+	}
+	public void itemStateChanged(ItemEvent e) {
+		int c=0;
+		String str=(String)e.getItem();
+		for(int i=0;i<name.length;i++)
+			if(str.contentEquals(name[i]))
+				c=cbx.getSelectedIndex();
+		lb3.setText(score[c]);
+	}
+}
