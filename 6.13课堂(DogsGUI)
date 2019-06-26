@@ -2,7 +2,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 import javax.swing.*;
-import java.util.*;
 
 class Dogs implements Comparable<Dogs>
 {
