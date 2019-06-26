@@ -1,0 +1,260 @@
+public class Plant {
+	String name;
+	int age;
+	public Plant(String name,int age) {
+		this.name=name;
+		this.age=age;
+	}
+	public String showInfo() {
+		return "Name: "+name+"\t"+"Day  of Plant"+age;
+	}
+}
+
+class Tree extends Plant implements Comparable<Tree>{
+	int height;
+	public Tree(String name,int age,int height) {
+		super(name,age);
+		this.height=height;
+	}
+	public String showInfo() {
+		return "Name: "+name+"\t"+"Age: "+age+"Height: "+height;
+	}
+	
+	@Override
+	public int compareTo(Tree other) {
+		return height-other.height;
+	}
+}
+
+class Grass extends Plant implements Comparable<Grass>{
+	String color;
+	String kind;
+	public Grass(String name,int age,String color,String kind) {
+		super(name,age);
+		this.color=color;
+		this.kind=kind;
+	}
+	public String showInfo() {
+		return "Name: "+name+"\t"+"Age: "+age+"Color: "+color+"Kind: "+kind;
+	}
+	
+	@Override
+	public int compareTo(Grass other) {
+		return name.compareTo(other.name);
+	}
+}
+
+
+
+
+
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import java.util.*;
+
+public class MainFrame extends JApplet implements ActionListener {
+		Container cp=this.getContentPane();
+		JButton bt1=new JButton("New Plant");
+		JButton bt2=new JButton("Sort");
+		
+		SortedSet<Tree> tree=new TreeSet<Tree>();
+		SortedSet<Grass> grass=new TreeSet<Grass>();
+		
+		public void init() {
+			cp.setLayout(new FlowLayout());
+			cp.add(bt1);
+			cp.add(bt2);
+			bt1.addActionListener(this);
+			bt2.addActionListener(this);
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if(e.getSource()==bt1) {
+				new NewFrame(tree,grass);
+			}else if(e.getSource()==bt2) {
+				new SortFrame(tree,grass);
+			}
+		}	
+}
+
+
+
+
+
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import java.util.*;
+
+public class NewFrame implements ActionListener,ItemListener {
+	JButton bt1=new JButton("New Plant");
+	JLabel lb1=new JLabel("Name: "),
+				lb2=new JLabel("Age: "),
+				lb3=new JLabel("Height: "),
+				lb4=new JLabel("Color: "),
+				lb5=new JLabel("Species: "),
+				lb6=new JLabel();
+	
+	JTextField tf1=new JTextField(5),
+						tf2=new JTextField(5),
+						tf3=new JTextField(5),
+						tf4=new JTextField(5);
+	
+	JRadioButton rb1=new JRadioButton("Tree"),
+							rb2=new JRadioButton("Grass");
+	
+	ButtonGroup bg=new ButtonGroup();
+	JComboBox cbx1=new JComboBox();
+	JFrame fa1=new JFrame();
+	JPanel pn1=new JPanel();
+	
+	String name;
+	int age=1996;
+	int height;
+	String color;
+	String kind;
+	int plantKind;
+	
+	SortedSet<Tree> tree=new TreeSet<Tree>();
+	SortedSet<Grass> grass=new TreeSet<Grass>();
+	
+	int i=0,j=0;
+	
+	public NewFrame(SortedSet<Tree> tree, SortedSet<Grass> grass) {
+		this.tree=tree;
+		this.grass=grass;
+		
+		cbx1.addItem("1996");
+		cbx1.addItem("1997");
+		cbx1.addItem("1998");
+		cbx1.addItem("1999");
+		
+		pn1.add(rb1);
+		pn1.add(rb2);
+		
+		pn1.add(lb1);
+		pn1.add(tf1);
+		
+		pn1.add(lb2);
+		
+		pn1.add(cbx1);
+		
+		pn1.add(lb3);
+		pn1.add(tf2);
+		
+		pn1.add(lb4);
+		pn1.add(tf3);
+		
+		pn1.add(lb5);
+		pn1.add(tf4);
+		
+		pn1.add(bt1);
+		pn1.add(lb6);
+		
+		pn1.setPreferredSize(new Dimension(300,200));
+		fa1.add(pn1);
+		fa1.setVisible(true);
+		fa1.pack();
+		
+		bg.add(rb1);
+		bg.add(rb2);
+		
+		rb1.addActionListener(this);
+		rb2.addActionListener(this);
+		cbx1.addItemListener(this);
+		bt1.addActionListener(this);
+	}
+	
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource()==rb1) {
+			lb6.setText("Please enter the name, age and height of the tree");
+			plantKind=1;
+		}
+		else if(e.getSource()==rb2) {
+			lb6.setText("Please enter the name, age, color and species of the grass");
+			plantKind=2;
+		}
+		else if(plantKind==2) {
+			color=tf3.getText();
+			kind=tf4.getText();
+			Grass g=new Grass(name,age,color,kind);
+			grass.add(g);
+			lb6.setText("Please enter the No."+j+" grass, whose name is "+g.name+"age is "+g.age+"color is "+g.color+"species is "+g.kind);
+			j++;
+			tf3.setText("");
+			tf4.setText("");
+		}
+	}
+	
+	public void itemStateChanged(ItemEvent e) {
+		age=Integer.parseInt((String)e.getItem());
+	}
+}
+
+
+
+
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import java.util.*;
+
+public class SortFrame  implements ActionListener{
+		JLabel lb1=new JLabel("Speices");
+		JTextArea ta1=new JTextArea(5,10);
+		
+		JRadioButton rb1=new JRadioButton("Tree"),
+							   rb2=new JRadioButton("Grass");
+		ButtonGroup bg=new ButtonGroup();
+		
+		JFrame fa1=new JFrame();
+		JPanel pn1=new JPanel();
+		
+		String s="";
+		SortedSet<Tree> tree=new TreeSet<Tree>();
+		SortedSet<Grass> grass=new TreeSet<Grass>();
+		
+		public SortFrame(SortedSet<Tree> tree,SortedSet<Grass>grass) {
+			this.tree=tree;
+			this.grass=grass;
+			
+			pn1.add(lb1);
+			pn1.add(rb1);
+			pn1.add(rb2);
+			pn1.add(ta1);
+			
+			pn1.setPreferredSize(new Dimension(300,200));
+			fa1.add(pn1);
+			fa1.setVisible(true);
+			fa1.pack();
+			
+			bg.add(rb1);
+			bg.add(rb2);
+			rb1.addActionListener(this);
+			rb2.addActionListener(this);
+		}
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			s="";
+			if(e.getSource()==rb1) {
+				Iterator<Tree> it=tree.iterator();
+				while(it.hasNext()) {
+					s+=it.next().showInfo()+"\n";
+				}
+				ta1.setText(s);
+			}
+			else if(e.getSource()==rb2) {
+				Iterator<Grass> it=grass.iterator();
+				while(it.hasNext()) {
+					s+=it.next().showInfo()+"\n";
+				}
+				ta1.setText(s);
+			}
+		}
+		
+		
+}
+
